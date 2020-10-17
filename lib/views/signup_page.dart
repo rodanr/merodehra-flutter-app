@@ -3,8 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'package:merodehra/models/user_data.dart';
 import 'package:merodehra/services/user_service.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -86,6 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: TextStyle(
                             fontSize: 25.0,
                             fontWeight: FontWeight.bold,
+                            color: Colors.white,
                             letterSpacing: 1.0),
                       ),
                     ),
@@ -96,6 +95,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           username = value;
                           print(value);
                         },
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                         decoration: new InputDecoration(
                           labelText: "username",
                           hintText: "your username",
@@ -130,6 +132,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         onChanged: (value) {
                           email = value;
                         },
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                         keyboardType: TextInputType.emailAddress,
                         decoration: new InputDecoration(
                           labelText: "email",
@@ -163,6 +168,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         onChanged: (value) {
                           mobileNumber = value;
                         },
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                         maxLength: 10,
                         keyboardType: TextInputType.phone,
                         decoration: new InputDecoration(
@@ -193,6 +201,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         onChanged: (value) {
                           password = value;
                         },
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                         decoration: new InputDecoration(
                           suffixIcon: GestureDetector(
                               onTap: _togglePasswordView, child: _getEyeIcon()),
@@ -287,7 +298,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Text(
                           "Sign up",
                           style: TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.bold),
+                              fontSize: 20.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
                         ),
                         height: 50.0,
                         minWidth: 200.0,
