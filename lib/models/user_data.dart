@@ -5,6 +5,19 @@ class UserData with ChangeNotifier, DiagnosticableTreeMixin {
   // ignore: non_constant_identifier_names
   String username, email, mobile_number, password;
 
+  // ignore: non_constant_identifier_names
+  int user_id;
+
+  void setUserId(int userId) async {
+    this.user_id = userId;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // avoiding redundant prefs set
+    if (this.user_id != prefs.getInt('user_id')) {
+      prefs.setInt('user_id', this.user_id);
+    }
+    notifyListeners();
+  }
+
   void updateUserName(String newUserName) async {
     this.username = newUserName;
     SharedPreferences prefs = await SharedPreferences.getInstance();

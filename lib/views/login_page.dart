@@ -42,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
   }
+
   //
   // @override
   // void deactivate() {
@@ -58,25 +59,26 @@ class _LoginPageState extends State<LoginPage> {
     ));
     Future<bool> _onBackPressed() {
       return showDialog(
-        context: context,
-        builder: (context) => new AlertDialog(
-          title: new Text('Are you sure?'),
-          content: new Text('Do you want to exit the App'),
-          actions: <Widget>[
-            new GestureDetector(
-              onTap: () => Navigator.of(context).pop(false),
-              child: Text("NO"),
+            context: context,
+            builder: (context) => new AlertDialog(
+              title: new Text('Are you sure?'),
+              content: new Text('Do you want to exit the App'),
+              actions: <Widget>[
+                new GestureDetector(
+                  onTap: () => Navigator.of(context).pop(false),
+                  child: Text("NO"),
+                ),
+                SizedBox(height: 16),
+                new GestureDetector(
+                  onTap: () => SystemNavigator.pop(),
+                  child: Text("YES"),
+                ),
+              ],
             ),
-            SizedBox(height: 16),
-            new GestureDetector(
-              onTap: () => SystemNavigator.pop(),
-              child: Text("YES"),
-            ),
-          ],
-        ),
-      ) ??
+          ) ??
           false;
     }
+
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
@@ -163,7 +165,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           decoration: new InputDecoration(
                             suffixIcon: GestureDetector(
-                                onTap: _togglePasswordView, child: _getEyeIcon()),
+                                onTap: _togglePasswordView,
+                                child: _getEyeIcon()),
                             labelText: "password",
                             labelStyle: TextStyle(
                               color: Colors.white,
@@ -218,8 +221,12 @@ class _LoginPageState extends State<LoginPage> {
                             if (response.statusCode == 200 ||
                                 response.statusCode == 400) {
                               var responseBody = response.body;
-                              var decodedData = convert.jsonDecode(responseBody);
+                              var decodedData =
+                                  convert.jsonDecode(responseBody);
                               if (response.statusCode == 200) {
+                                context
+                                    .read<UserData>()
+                                    .setUserId(decodedData['user_id']);
                                 context
                                     .read<UserData>()
                                     .updateUserName(decodedData['username']);
@@ -251,7 +258,7 @@ class _LoginPageState extends State<LoginPage> {
                                 setState(() {
                                   _showSpinner = false;
                                 });
-                                print("else runned");
+                                // print("else runned");
                                 String message = decodedData['message'];
                                 SnackBar snackbar = SnackBar(
                                   content: new Text(message),

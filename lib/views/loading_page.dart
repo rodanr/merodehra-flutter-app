@@ -20,6 +20,7 @@ class _LoadingPageState extends State<LoadingPage> {
     loginFlag = prefs.getBool('loginStatus');
     if (loginFlag == true) {
       // opens user dashboard
+      context.read<UserData>().setUserId(prefs.getInt('user_id'));
       context.read<UserData>().updateUserName(prefs.getString('username'));
       context.read<UserData>().updateEmail(prefs.getString('email'));
       context

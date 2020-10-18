@@ -98,7 +98,7 @@ class _UserDashBoardState extends State<UserDashBoard> {
                       height: 10.0,
                     ),
                     Text(
-                      context.watch<UserData>().username,
+                      context.watch<UserData>().username+"#"+(context.watch<UserData>().user_id).toString(),
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),

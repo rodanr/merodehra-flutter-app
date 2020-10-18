@@ -35,6 +35,7 @@ dependencies:
   modal_progress_hud: ^0.1.3
   font_awesome_flutter: ^8.10.0
   multi_image_picker: ^4.7.14
+  geolocator: ^6.0.0+4
 
 
 dev_dependencies:
