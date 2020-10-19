@@ -34,4 +34,18 @@ class AdvertisementManagement {
     );
     return response;
   }
+
+  Future<http.Response> searchAdvertisement(String locationToSearch) async {
+    http.Response response = await http
+        .get('https://merodehra.herokuapp.com/search/$locationToSearch');
+    // print(response.statusCode);
+    return response;
+  }
+
+  Future<http.Response> getSingleAdvertisement(int advertisementId) async {
+    http.Response response = await http
+        .get('https://merodehra.herokuapp.com/advertisement/$advertisementId');
+    // print(response.statusCode);
+    return response;
+  }
 }

@@ -423,6 +423,8 @@ class _PutAdsPageState extends State<PutAdsPage> {
                       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                       child: FlatButton(
                           onPressed: () async {
+                            //closing keyboard
+                            FocusScope.of(context).requestFocus(FocusNode());
                             setState(() {
                               _showSpinner = true;
                             });
