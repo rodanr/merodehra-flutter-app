@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:merodehra/views/find_ads_page.dart';
+import 'package:merodehra/views/find_ads_page_and_homepage.dart';
 import 'package:merodehra/views/login_page.dart';
 import 'package:merodehra/views/notification_page.dart';
 import 'package:merodehra/views/put_ads_page.dart';
@@ -201,6 +201,9 @@ class _UserDashBoardState extends State<UserDashBoard> {
                         Scaffold.of(ctx).openDrawer();
                       },
                       child: RawMaterialButton(
+                        onPressed: (){
+                          //onTap of GestureDetector does the job
+                        },
                           fillColor: Color(0xaa2D1D40),
                           shape: CircleBorder(),
                           constraints: BoxConstraints.tightFor(

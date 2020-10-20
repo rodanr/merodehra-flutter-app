@@ -35,7 +35,7 @@ class ListCard extends StatelessWidget {
               title: Text(
                 propertyType == "Room"
                     ? "$roomCount rooms in $propertyAddress"
-                    : "Flat with $roomCount in $propertyAddress",
+                    : "Flat with $roomCount rooms in $propertyAddress",
                 style: TextStyle(color: Colors.white),
               ),
               subtitle: Text(

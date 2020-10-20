@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
@@ -47,6 +48,11 @@ class _AdvertisementViewState extends State<AdvertisementView> {
 
   @override
   Widget build(BuildContext context) {
+    // Changing Status bar color
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color(0xff1A1929),
+      statusBarBrightness: Brightness.dark,
+    ));
     return MaterialApp(
       home: Scaffold(
         body: SafeArea(

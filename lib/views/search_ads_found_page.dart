@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:merodehra/componenets/list_card.dart';
 import 'package:merodehra/services/advertisement_service.dart';
 import 'package:http/http.dart' as http;
+import 'package:merodehra/views/find_ads_page_and_homepage.dart';
 import 'advertisement_view_page.dart';
 
-class AdsFoundPage extends StatefulWidget {
+class SearchAdsFoundPage extends StatefulWidget {
   final List<dynamic> advertisementList;
+  final String locationToSearch;
 
-  AdsFoundPage({this.advertisementList});
+  SearchAdsFoundPage({this.advertisementList, this.locationToSearch});
 
   @override
-  _AdsFoundPageState createState() => _AdsFoundPageState();
+  _SearchAdsFoundPageState createState() => _SearchAdsFoundPageState();
 }
 
-class _AdsFoundPageState extends State<AdsFoundPage> {
+class _SearchAdsFoundPageState extends State<SearchAdsFoundPage> {
   Widget buildListView() {
     return ListView.builder(
       itemCount: widget.advertisementList.length,
@@ -52,6 +55,11 @@ class _AdsFoundPageState extends State<AdsFoundPage> {
     // for (int i = 0; i<widget.advertisementList.length;i++){
     //   print(widget.advertisementList[i]["price"]);
     // }
+    // Changing Status bar color
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color(0xff1A1929),
+      statusBarBrightness: Brightness.dark,
+    ));
     return MaterialApp(
       home: SafeArea(
         child: Scaffold(
@@ -91,7 +99,7 @@ class _AdsFoundPageState extends State<AdsFoundPage> {
                       Container(
                         margin: EdgeInsets.all(10.0),
                         child: Text(
-                          "${widget.advertisementList.length} results found",
+                          "${widget.advertisementList.length} results found for $locationToSearch ",
                           style: TextStyle(color: Colors.green, fontSize: 20.0),
                         ),
                       ),

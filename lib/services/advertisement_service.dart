@@ -48,4 +48,11 @@ class AdvertisementManagement {
     // print(response.statusCode);
     return response;
   }
+
+  Future<http.Response> getMyAdvertisementList(int userId) async {
+    http.Response response = await http
+        .get('https://merodehra.herokuapp.com/advertisement/user/$userId');
+    // print(response.statusCode);
+    return response;
+  }
 }
