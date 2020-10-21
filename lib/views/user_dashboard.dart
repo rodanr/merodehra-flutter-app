@@ -196,22 +196,19 @@ class _UserDashBoardState extends State<UserDashBoard> {
                   Container(
                     padding: EdgeInsets.all(8.0),
                     alignment: Alignment.topLeft,
-                    child: GestureDetector(
-                      onTap: () {
+                    child: RawMaterialButton(
+                      onPressed: (){
+                        //onTap of GestureDetector does the job
                         Scaffold.of(ctx).openDrawer();
+
                       },
-                      child: RawMaterialButton(
-                        onPressed: (){
-                          //onTap of GestureDetector does the job
-                        },
-                          fillColor: Color(0xaa2D1D40),
-                          shape: CircleBorder(),
-                          constraints: BoxConstraints.tightFor(
-                            height: 40,
-                            width: 40,
-                          ),
-                          child: Icon(FontAwesomeIcons.bars)),
-                    ),
+                        fillColor: Color(0xaa2D1D40),
+                        shape: CircleBorder(),
+                        constraints: BoxConstraints.tightFor(
+                          height: 40,
+                          width: 40,
+                        ),
+                        child: Icon(FontAwesomeIcons.bars)),
                   ),
                   Expanded(
                     child: IndexedStack(
