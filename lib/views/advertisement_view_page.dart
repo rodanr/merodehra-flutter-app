@@ -21,6 +21,7 @@ class _AdvertisementViewState extends State<AdvertisementView> {
       waterSource,
       terraceAccess,
       bathroomUsage,
+      photoUrl,
       ownerName,
       propertyDescription;
 
@@ -35,6 +36,7 @@ class _AdvertisementViewState extends State<AdvertisementView> {
       waterSource = decodedData['water_source'];
       terraceAccess = decodedData['terrace_access'] == true ? "Yes" : "No";
       bathroomUsage = decodedData['bathroom'];
+      photoUrl = decodedData['photo'];
       ownerName = decodedData['username'];
       propertyDescription = decodedData['description'];
     });
@@ -90,6 +92,19 @@ class _AdvertisementViewState extends State<AdvertisementView> {
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(
+                      "Image:",
+                      style: TextStyle(
+                          color: Colors.grey.shade200, fontSize: 20.0),
+                    ),
+                    Container(
+                      child: Image(
+                        image: NetworkImage(photoUrl),
+                      ),
                     ),
                     SizedBox(
                       height: 20.0,
@@ -173,13 +188,6 @@ class _AdvertisementViewState extends State<AdvertisementView> {
                       "Posted By: $ownerName",
                       style: TextStyle(
                           color: Colors.grey.shade300, fontSize: 20.0),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Text(
-                      "Images feature ComingSoon...",
-                      style: TextStyle(color: Colors.grey, fontSize: 15.0),
                     ),
                   ],
                 ),

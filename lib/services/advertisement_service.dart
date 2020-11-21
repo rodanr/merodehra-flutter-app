@@ -10,6 +10,7 @@ class AdvertisementManagement {
       String roomCount,
       double price,
       propertyDescription,
+      String photoUrl,
       String waterSource,
       String bathroom,
       bool terraceAccess) async {
@@ -27,6 +28,7 @@ class AdvertisementManagement {
         "room_count": roomCount,
         "price": price,
         "description": propertyDescription,
+        "photo": photoUrl,
         "water_source": waterSource,
         "bathroom": bathroom,
         "terrace_access": terraceAccess

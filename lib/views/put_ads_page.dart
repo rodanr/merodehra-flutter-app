@@ -1,13 +1,17 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:async';
 import 'package:merodehra/services/advertisement_service.dart';
 import 'package:merodehra/services/gps_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'dart:convert' as convert;
+import 'package:intl/intl.dart';
 
 enum PropertyType { room, flat }
 enum BathroomUsage { private, shared }
@@ -29,55 +33,42 @@ class PutAdsPage extends StatefulWidget {
 }
 
 class _PutAdsPageState extends State<PutAdsPage> {
-  List<Asset> images = List<Asset>();
-  String _error;
   PropertyType selectedPropertyType = PropertyType.room;
   BathroomUsage selectedBathroomUsage = BathroomUsage.private;
+  File image;
 
-  Widget buildGridView() {
-    if (images != null)
-      return SliverGrid.count(
-        crossAxisCount: 3,
-        children: List.generate(images.length, (index) {
-          Asset asset = images[index];
-          return AssetThumb(
-            asset: asset,
-            width: 300,
-            height: 300,
-          );
-        }),
-      );
-    else
-      return Container(color: Colors.white);
+  Future getImage() async {
+    final picker = ImagePicker();
+    var pickedFile = await picker.getImage(source: ImageSource.gallery);
+    File tempImage = File(pickedFile.path);
+    setState(() {
+      image = tempImage;
+    });
   }
 
-  Future<void> loadAssets() async {
-    setState(() {
-      images = List<Asset>();
-    });
+  String generateImageFileName() {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd-kk:mm:ss');
+    String formatted = formatter.format(now);
+    print(formatted);
+    return formatted;
+  }
 
-    List<Asset> resultList;
-    String error;
+  Future<String> uploadImage(File image) async {
+    String fileName = generateImageFileName();
+    await firebase_storage.FirebaseStorage.instance
+        .ref(fileName + '.jpg')
+        .putFile(image);
+    String downloadURL = await firebase_storage.FirebaseStorage.instance
+        .ref(fileName + '.jpg')
+        .getDownloadURL();
+    return downloadURL;
+  }
 
-    try {
-      resultList = await MultiImagePicker.pickImages(
-        maxImages: 300,
-      );
-    } on Exception catch (e) {
-      error = e.toString();
-      _error = _error;
-      print(error);
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      images = resultList;
-      if (error == null) _error = 'No Error Detected';
-    });
+  @override
+  void initState() {
+    final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+    super.initState();
   }
 
   @override
@@ -89,34 +80,27 @@ class _PutAdsPageState extends State<PutAdsPage> {
           child: CustomScrollView(
             slivers: [
               SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: FlatButton(
-                        padding: EdgeInsets.all(5.0),
-                        onPressed: loadAssets,
-                        child: ListTile(
-                          dense: true,
-                          title: Text(
-                            "Click here to upload images",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                            ),
-                          ),
-                          trailing: Icon(
-                            FontAwesomeIcons.upload,
-                            color: Colors.yellow,
-                          ),
-                        ),
-                        color: Colors.blueGrey,
-                      ),
-                    ),
-                  ],
+                  delegate: SliverChildListDelegate([
+                Container(
+                  child: image == null ? null : imageToBeUploaded(),
                 ),
-              ),
-              buildGridView(),
+                RaisedButton(
+                  onPressed: getImage,
+                  child: Text("Upload Images"),
+                ),
+                // RaisedButton(
+                //   onPressed: () async {
+                //     await uploadImage(image);
+                //   },
+                //   child: Text("Submit Image"),
+                // ),
+                // Container(
+                //   child: Image(
+                //     image: NetworkImage(
+                //         'https://firebasestorage.googleapis.com/v0/b/mero-dehra.appspot.com/o/test.jpg?alt=media&token=d14174a5-5dcc-45a4-be5b-668438555b6c'),
+                //   ),
+                // ),
+              ])),
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
@@ -428,8 +412,10 @@ class _PutAdsPageState extends State<PutAdsPage> {
                             setState(() {
                               _showSpinner = true;
                             });
+                            String photoUrl = await uploadImage(image);
                             geoLocation = await getGPSLocation();
-                            print(geoLocation);
+                            // print(geoLocation);
+
                             AdvertisementManagement postAdvertisement =
                                 new AdvertisementManagement();
                             http.Response response =
@@ -442,6 +428,7 @@ class _PutAdsPageState extends State<PutAdsPage> {
                                     roomCount,
                                     propertyPrice,
                                     propertyDescription,
+                                    photoUrl,
                                     waterSource,
                                     selectedBathroomUsage ==
                                             BathroomUsage.private
@@ -501,5 +488,14 @@ class _PutAdsPageState extends State<PutAdsPage> {
         ),
       ),
     );
+  }
+
+  Widget imageToBeUploaded() {
+    return Container(
+        child: Image.file(
+      image,
+      height: 300.0,
+      width: 300.0,
+    ));
   }
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1082025480933",
+    "firebase_url": "https://mero-dehra.firebaseio.com",
+    "project_id": "mero-dehra",
+    "storage_bucket": "mero-dehra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082025480933:android:995045b30183ee835c3a0c",
+        "android_client_info": {
+          "package_name": "com.merodehra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1082025480933-56mr4jnn3cv3mn1or2q4pcp6rqtgligj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCVOXV9ByMvMDmBBLIiGHfbhKRE7vTQ3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1082025480933-56mr4jnn3cv3mn1or2q4pcp6rqtgligj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
