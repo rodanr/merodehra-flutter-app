@@ -134,21 +134,6 @@ class _FindAdsPageState extends State<FindAdsPage> {
                           SizedBox(
                             width: 20.0,
                           ),
-                          Column(
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.shoppingCart,
-                                color: Colors.orange,
-                              ),
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                              Text("Ads Cart")
-                            ],
-                          ),
-                          SizedBox(
-                            width: 35.0,
-                          ),
                           GestureDetector(
                             onTap: () async {
                               setState(() {

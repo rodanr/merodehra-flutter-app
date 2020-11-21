@@ -46,6 +46,8 @@ class _MyAdsFoundPageState extends State<MyAdsFoundPage> {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return AdvertisementView(
                   response: response,
+                  advertisementId: advertisementId,
+                  myFlag: false,
                 );
               }));
             } else {
