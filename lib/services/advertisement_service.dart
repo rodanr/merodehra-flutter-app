@@ -31,7 +31,8 @@ class AdvertisementManagement {
         "photo": photoUrl,
         "water_source": waterSource,
         "bathroom": bathroom,
-        "terrace_access": terraceAccess
+        "terrace_access": terraceAccess,
+        "sold_status": false,
       }),
     );
     return response;

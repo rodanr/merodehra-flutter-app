@@ -81,7 +81,11 @@ class _UserDashBoardState extends State<UserDashBoard> {
   @override
   void initState() {
     final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-    updateUI();
+    if (profilePictureUrl == "NULL" ||
+        profilePictureUrl == "" ||
+        profilePictureUrl == null){
+      updateUI();
+    }
     pageList.add(FindAdsPage());
     pageList.add(PutAdsPage());
     pageList.add(NotificationPage());
@@ -149,7 +153,7 @@ class _UserDashBoardState extends State<UserDashBoard> {
                             _showSpinner = true;
                           });
                           profilePictureUrl = await uploadImage(image);
-                          await postProfilePictureUrl(1, profilePictureUrl);
+                          await postProfilePictureUrl(context.read<UserData>().user_id, profilePictureUrl);
                           setState(() {
                             updateUI();
                           });

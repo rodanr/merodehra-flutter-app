@@ -40,7 +40,7 @@ class _SearchAdsFoundPageState extends State<SearchAdsFoundPage> {
                 return AdvertisementView(
                   response: response,
                   advertisementId: advertisementId,
-                  myFlag: true,
+                  myFlag: false,
                 );
               }));
             } else {

@@ -243,10 +243,7 @@ class _AdvertisementViewState extends State<AdvertisementView> {
         floatingActionButton: widget.myFlag == true
             ? FloatingActionButton(
                 backgroundColor: Colors.redAccent,
-                child: Icon(
-                  FontAwesomeIcons.cartPlus,
-                  color: Colors.white,
-                ),
+                child: Text("Set as Sold"),
                 onPressed: () {},
               )
             : null,
