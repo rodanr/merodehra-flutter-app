@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserData with ChangeNotifier, DiagnosticableTreeMixin {
   // ignore: non_constant_identifier_names
-  String username, email, mobile_number, password;
+  String username, email, mobile_number, password, photoUrl;
 
   // ignore: non_constant_identifier_names
   int user_id;
@@ -14,6 +14,16 @@ class UserData with ChangeNotifier, DiagnosticableTreeMixin {
     // avoiding redundant prefs set
     if (this.user_id != prefs.getInt('user_id')) {
       prefs.setInt('user_id', this.user_id);
+    }
+    notifyListeners();
+  }
+
+  void updatePhotoUrl(String newPhotoUrl) async {
+    this.photoUrl = newPhotoUrl;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // avoiding redundant prefs set
+    if (this.photoUrl != prefs.getString('photoUrl')) {
+      prefs.setString('photoUrl', this.photoUrl);
     }
     notifyListeners();
   }
